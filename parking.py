@@ -6,9 +6,9 @@ import cv2
 import statistics
 
 
-def getFrame(cite):
+def getFrame(site):
 
-    resource = cite
+    resource = site
     resource_name = resource
     print("Trying to open resource: " + resource_name)
     cap = cv2.VideoCapture(resource)
@@ -22,8 +22,8 @@ def getFrame(cite):
 
 
 # In[5]:
-def parkingDataProcessing(cite = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a", day = True):
-    cite = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a"
+def parkingDataProcessing(site = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a", day = True):
+    site = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a"
     day = True
     fn_yaml = "Khare_yml_02.yml"
     fn_out =  "output.mp4"
@@ -51,7 +51,7 @@ def parkingDataProcessing(cite = "http://flussonic-12.cams.ufanet.ru/1492065333/
         dict['park_laplacian_th'] = 2.0
     # Сбор видео из потока
 
-    imgs = [getFrame(cite) for i in range(40)]
+    imgs = [getFrame(site) for i in range(40)]
     height, width, layers = imgs[0].shape
     print(height, width, layers)
 
@@ -281,8 +281,8 @@ def parkingDataProcessing(cite = "http://flussonic-12.cams.ufanet.ru/1492065333/
 # In[31]:
 
 def drawingRectangles():
-    # нажмите escape, чтобы закончить боксинг в реальном времени.
-    # Программа отмечает полигоны на рисунке, когда получает 4 двойных клика
+    # нажмите escape, чтобы закончить выделение.
+    # Программа отмечает полигоны на рисунке, когда получает 4 клика (собирается четырехугольник)
 
     refPt = []
     cropping = False
@@ -346,15 +346,15 @@ def drawingRectangles():
     cv2.imshow("Double click to mark points", image)
     cv2.setMouseCallback("Double click to mark points", click_and_crop)
 
-    # keep looping until the 'q' key is pressed
+    # пока не нажать клавишу 'q'
     while True:
-        # display the image and wait for a keypress
-        cv2.imshow("Double click to mark points", image)
+        # отображение изображения и ожидание нажатия клавиши
+        cv2.imshow("Сlick to mark points", image)
         key = cv2.waitKey(1) & 0xFF
         if cv2.waitKey(33) == 27:
             break
 
-    # data list into yaml file
+    # data list в yaml файл
     if data != []:
         yaml_dump(file_path, data)
     cv2.destroyAllWindows() #important to prevent window from becoming inresponsive

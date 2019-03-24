@@ -1,10 +1,22 @@
-### Automatic parking management 
+# Swift parking
 
-1. Images in Train folder can be utilized with the script I wrote for training a HAAR based classifier for all the images in the train folder.
+## Components   
 
-![](Haarpark.gif)
+* Web server (Flask)
+* [Automatic parking management](https://github.com/ankit1khare/Automatic-Parking-Management) - using Haar Cascades, 2 opencv haar classifier
+* Web client (JQuery, Bootstrap)
+* iOS client (Swift)
+* +-Telegram bot
 
-2. For a step-by-step explanation, [youtube video](https://www.youtube.com/watch?v=y1M5dNkvCJc) can be referred. It explains the approach and also the high-level functionality of code.
+## Install Web server and Automatic parking management
 
-3. Ipython Notebook should be treated as the 'main' program which calls uses all the other modules.
+Require Python 3.6+
 
+pip install -r requirements.txt
+
+## Edit parking areas
+
+The areas can edit using [drawingRectangles()](https://github.com/aydarkin/Hackaton_parking_UFANET/blob/master/parking.py#L283)
+
+
+Very thanks Ufanet for interesting challenge.

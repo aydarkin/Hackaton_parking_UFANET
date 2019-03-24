@@ -9,8 +9,7 @@ from flask import request
 from flask import render_template
 import base64
 
-URL_PATH = '84.201.147.156'
-LISTEN = '0.0.0.0'
+URL_PATH = '84.201.147.156' #яндекс облако
 PATH = os.path.abspath("../")
 
 app = Flask(__name__,static_folder='static')
@@ -37,10 +36,10 @@ def hello():
         print("5")
         return render_template('index.html',name=name)
 
-@app.route("/getimage")
+@app.route("/getimage
 def getImage():
-    return open("frame.jpg")
+    return render_template('index.html',name="../frame.jpg")
 
-
+#запуск сервера
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)

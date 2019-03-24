@@ -3,5 +3,5 @@ imutils
 opencv-python
 yaml
 statistics
-cherrypy
+flask
 telebot
