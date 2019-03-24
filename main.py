@@ -3,21 +3,44 @@ import json
 import parking
 import cherrypy
 import cv2
+import os
+from flask import Flask
+from flask import request
+from flask import render_template
+import base64
 
-class Server(object):
-    @cherrypy.expose
-    def index(self):
-        if cherrypy.request.headers['content-type'] == 'x-www-form-urlencoded' and cherrypy.request.method == 'POST':
-            #length = int(cherrypy.request.headers['content-length'])
-            #json_string = cherrypy.request.body.read(length).decode("utf-8")
-            #data = json.loads(json_string)
-            if cherrypy.request.headers['command'] == 'analyze':
-                site = cherrypy.request.headers['site'];
-                isDay = bool(cherrypy.request.headers['isDay']);
-                busy, free = parking.parkingDataProcessing(site, isDay);
-                img_file = open("frame.jpg").read()
-                return json.dumps({'image': img_file.encode('base64'),'busy': busy, 'free':free})
+URL_PATH = '84.201.147.156'
+LISTEN = '0.0.0.0'
+PATH = os.path.abspath("../")
+
+app = Flask(__name__,static_folder='static')
+
+@app.route("/",methods=['POST', 'GET'])
+def hello():
+    print(request.form)
+    name = "none"
+    if request.content_type:
+        print(request.content_type, request.method, request.form['command'])
+        if request.content_type == 'application/x-www-form-urlencoded; charset=UTF-8' and request.method == 'POST':
+            print("2")
+            if 'command' in request.form and request.form['command'] == 'analyze':
+                print("3")
+                site = request.form['site'];
+                isDay = bool(request.form['isDay']);
+                free, buse = parking.parkingDataProcessing();
+
+                return json.dumps({'busy': buse, 'free':free})
         else:
-            return open(os.path.join(MEDIA_DIR, u'index.html'))
+            print("4")
+            return render_template('index.html',name=name)
+    else:
+        print("5")
+        return render_template('index.html',name=name)
 
-cherrypy.quickstart(Server())
+@app.route("/getimage")
+def getImage():
+    return open("frame.jpg")
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8080)

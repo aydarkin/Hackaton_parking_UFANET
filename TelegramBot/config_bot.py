@@ -1,5 +1,5 @@
-TOKEN = 'YOUR TOKEN'
-WEBHOOK_HOST = 'HOST IP'
+TOKEN = '834866217:AAGZIgNOPnCsT8mPiNyx9_oSMGJaOhi2VPw'
+WEBHOOK_HOST = '84.201.147.156'
 WEBHOOK_PORT = 88
 WEBHOOK_LISTEN = '0.0.0.0'  # На некоторых серверах придется указывать такой же IP, что и выше
 

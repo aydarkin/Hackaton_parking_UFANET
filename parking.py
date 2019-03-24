@@ -3,6 +3,8 @@
 import yaml
 import numpy as np
 import cv2
+import statistics
+
 
 def getFrame(cite):
 
@@ -20,7 +22,9 @@ def getFrame(cite):
 
 
 # In[5]:
-def parkingDataProcessing(cite:String = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a", day:bool = true):
+def parkingDataProcessing(cite = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a", day = True):
+    cite = "http://flussonic-12.cams.ufanet.ru/1492065333/preview.mp4?token=bdee398372054f46ae1949cc299df92a"
+    day = True
     fn_yaml = "Khare_yml_02.yml"
     fn_out =  "output.mp4"
     cascade_src = 'Khare_classifier_02.xml'
@@ -47,7 +51,7 @@ def parkingDataProcessing(cite:String = "http://flussonic-12.cams.ufanet.ru/1492
         dict['park_laplacian_th'] = 2.0
     # Сбор видео из потока
 
-    imgs = [getFrame(cite) for i in range(80)]
+    imgs = [getFrame(cite) for i in range(40)]
     height, width, layers = imgs[0].shape
     print(height, width, layers)
 
@@ -266,21 +270,19 @@ def parkingDataProcessing(cite:String = "http://flussonic-12.cams.ufanet.ru/1492
         # писать в выходных кадрах
         if dict['save_video']:
     #         if video_cur_frame % 35 == 0: # принимать каждые 30 кадров
-                out.write(frame_out)
+            out.write(frame_out)
     cv2.imwrite('frame.jpg', frame_out)
     cap.release()
-    if dict['save_video']: out.release()
+    if dict['save_video']:
+         out.release()
     cv2.destroyAllWindows()
-    return  busy, free
+    return  free, busy
 
 # In[31]:
 
-for drawingRectangles():
+def drawingRectangles():
     # нажмите escape, чтобы закончить боксинг в реальном времени.
     # Программа отмечает полигоны на рисунке, когда получает 4 двойных клика
-    import cv2
-    import yaml
-    import numpy as np
 
     refPt = []
     cropping = False
@@ -360,12 +362,8 @@ for drawingRectangles():
 
 # In[21]:
 
-fun showAverageAndMean():
+def showAverageAndMean():
     # Программа для демонстрации расчета порогового значения для данного парковочного устройства
-    import statistics
-    import cv2
-    import yaml
-    import numpy as np
 
     sum_up = 0.0
     delta_list = []
