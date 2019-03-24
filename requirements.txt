@@ -1,0 +1,7 @@
+numpy
+imutils
+opencv-python
+yaml
+statistics
+cherrypy
+telebot
